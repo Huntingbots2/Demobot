@@ -50,7 +50,7 @@ async def imagine_(b, message: Message):
         await mukesh.delete()
         await message.reply_photo("mukesh.jpg",caption=caption,quote=True)
     except Exception as e:
-        await mukesh.edit_text(f"error {e}")
+        await asuna.edit_text(f"error {e}")
     
 # -----------CREDITS -----------
 # telegram : @legend_coder
