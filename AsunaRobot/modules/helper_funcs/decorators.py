@@ -13,7 +13,7 @@ from AsunaRobot import dispatcher as n
 from AsunaRobot.modules.disable import DisableAbleCommandHandler, DisableAbleMessageHandler
 
 
-class MukeshTelegramHandler:
+class  AsunaTelegramHandler:
     def __init__(self, n):
         self._dispatcher = n
 
@@ -54,7 +54,7 @@ class MukeshTelegramHandler:
                         group,
                     )
                 LOGGER.debug(
-                    f"[MukeshCmd] Loaded handler {command} for function {func.__name__} in group {group}"
+                    f"[ AsunaCmd] Loaded handler {command} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
@@ -81,7 +81,7 @@ class MukeshTelegramHandler:
                         )
                     )
                 LOGGER.debug(
-                    f"[MukeshCMd] Loaded handler {command} for function {func.__name__}"
+                    f"[ AsunaCMd] Loaded handler {command} for function {func.__name__}"
                 )
 
             return func
@@ -110,7 +110,7 @@ class MukeshTelegramHandler:
                         MessageHandler(pattern, func, run_async=run_async), group
                     )
                 LOGGER.debug(
-                    f"[MukeshMsg] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
+                    f"[ AsunaMsg] Loaded filter pattern {pattern} for function {func.__name__} in group {group}"
                 )
             except TypeError:
                 if can_disable:
@@ -124,7 +124,7 @@ class MukeshTelegramHandler:
                         MessageHandler(pattern, func, run_async=run_async)
                     )
                 LOGGER.debug(
-                    f"[MukeshRobot-Msg] Loaded filter pattern {pattern} for function {func.__name__}"
+                    f"[AsunaRobot-Msg] Loaded filter pattern {pattern} for function {func.__name__}"
                 )
 
             return func
@@ -139,7 +139,7 @@ class MukeshTelegramHandler:
                 )
             )
             LOGGER.debug(
-                f"[MukeshRobot-Callback] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
+                f"[AsunaRobot-Callback] Loaded callbackquery handler with pattern {pattern} for function {func.__name__}"
             )
             return func
 
@@ -165,7 +165,7 @@ class MukeshTelegramHandler:
                 )
             )
             LOGGER.debug(
-                f"[MukeshINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES "
+                f"[ AsunaINLINE] Loaded inlinequery handler with pattern {pattern} for function {func.__name__} | PASSES "
                 f"USER DATA: {pass_user_data} | PASSES CHAT DATA: {pass_chat_data} | CHAT TYPES: {chat_types}"
             )
             return func
@@ -173,7 +173,7 @@ class MukeshTelegramHandler:
         return _inlinequery
 
 
-Mukeshcmd = MukeshTelegramHandler(n).command
-Mukeshmsg = MukeshTelegramHandler(n).message
-Mukeshcallback = MukeshTelegramHandler(n).callbackquery
-Mukeshinline = MukeshTelegramHandler(n).inlinequery
+ Asunacmd =  AsunaTelegramHandler(n).command
+ Asunamsg =  AsunaTelegramHandler(n).message
+ Asunacallback =  AsunaTelegramHandler(n).callbackquery
+ Asunainline =  AsunaTelegramHandler(n).inlinequery

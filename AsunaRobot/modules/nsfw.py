@@ -9,7 +9,7 @@ from telegram.error import BadRequest, RetryAfter, Unauthorized
 from telegram.ext import CallbackContext, CommandHandler, run_async
 from telegram.utils.helpers import mention_html
 
-import MukeshRobot.modules.sql.nsfw_sql as sql
+import AsunaRobot.modules.sql.nsfw_sql as sql
 from AsunaRobot import dispatcher
 from AsunaRobot.modules.helper_funcs.chat_status import user_admin
 from AsunaRobot.modules.helper_funcs.filters import CustomFilters

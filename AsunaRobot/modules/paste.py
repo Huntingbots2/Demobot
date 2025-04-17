@@ -1,6 +1,6 @@
 """MIT License
 
-Copyright (c) 2023-24 Noob-Mukesh
+Copyright (c) 2023-24 Noob- Asuna
 
           GITHUB: NOOB-MUKESH
           TELEGRAM: @MR_SUKKUN

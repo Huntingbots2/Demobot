@@ -1,6 +1,6 @@
 """MIT License
 
-Copyright (c) 2023-24 Noob-Mukesh
+Copyright (c) 2023-24 Noob- Asuna
 
           GITHUB: NOOB-MUKESH
           TELEGRAM: @MR_SUKKUN
@@ -26,11 +26,11 @@ from pyrogram import filters
 from pyrogram.types import  Message
 from pyrogram.enums import ChatAction
 
-from .. import pbot as  Mukesh,BOT_USERNAME
+from .. import pbot as   Asuna,BOT_USERNAME
 import requests
 
 
-@Mukesh.on_message(filters.command("qrcode"))
+@ Asuna.on_message(filters.command("qrcode"))
 async def qrcode_(_, message: Message):
     if message.reply_to_message:
         text = message.reply_to_message.text

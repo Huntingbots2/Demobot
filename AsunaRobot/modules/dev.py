@@ -8,7 +8,7 @@ from telegram import TelegramError, Update
 from telegram.error import Unauthorized
 from telegram.ext import CallbackContext, CommandHandler
 
-import MukeshRobot
+import AsunaRobot
 from AsunaRobot import dispatcher
 from AsunaRobot.modules.helper_funcs.chat_status import dev_plus
 
@@ -17,12 +17,12 @@ from AsunaRobot.modules.helper_funcs.chat_status import dev_plus
 def allow_groups(update: Update, context: CallbackContext):
     args = context.args
     if not args:
-        update.effective_message.reply_text(f"Current state: {MukeshRobot.ALLOW_CHATS}")
+        update.effective_message.reply_text(f"Current state: {AsunaRobot.ALLOW_CHATS}")
         return
     if args[0].lower() in ["off", "no"]:
-        MukeshRobot.ALLOW_CHATS = True
+        AsunaRobot.ALLOW_CHATS = True
     elif args[0].lower() in ["yes", "on"]:
-        MukeshRobot.ALLOW_CHATS = False
+        AsunaRobot.ALLOW_CHATS = False
     else:
         update.effective_message.reply_text("Format: /lockdown Yes/No or Off/On")
         return

@@ -121,7 +121,7 @@ CHAT_SETTINGS = {}
 USER_SETTINGS = {}
 
 for module_name in ALL_MODULES:
-    imported_module = importlib.import_module("MukeshRobot.modules." + module_name)
+    imported_module = importlib.import_module("AsunaRobot.modules." + module_name)
     if not hasattr(imported_module, "__mod_name__"):
         imported_module.__mod_name__ = imported_module.__name__
 
@@ -349,7 +349,7 @@ def help_button(update, context):
         pass
 
 
-def Mukesh_about_callback(update: Update, context: CallbackContext):
+def  Asuna_about_callback(update: Update, context: CallbackContext):
     query = update.callback_query
     
     if query.data == "mukesh_":
@@ -443,7 +443,7 @@ def Mukesh_about_callback(update: Update, context: CallbackContext):
             parse_mode=ParseMode.MARKDOWN,
             timeout=60,
         )
-def MukeshRobot_Main_Callback(update: Update, context: CallbackContext):
+def AsunaRobot_Main_Callback(update: Update, context: CallbackContext):
     query = update.callback_query
     if query.data == "Main_help":
         query.message.edit_caption(f"""
@@ -1012,7 +1012,7 @@ def donate(update: Update, context: CallbackContext):
 
         if OWNER_ID != 5935608297:
             update.effective_message.reply_text(
-                f"» ᴛʜᴇ ᴅᴇᴠᴇʟᴏᴩᴇʀ ᴏғ {dispatcher.bot.first_name} sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ ɪs [ɢɪᴛʜᴜʙ](https://github.com/noob-mukesh/MukeshRobot)"
+                f"» ᴛʜᴇ ᴅᴇᴠᴇʟᴏᴩᴇʀ ᴏғ {dispatcher.bot.first_name} sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ ɪs [ɢɪᴛʜᴜʙ](https://github.com/noob-mukesh/AsunaRobot)"
                 f"\n\nʙᴜᴛ ʏᴏᴜ ᴄᴀɴ ᴀʟsᴏ ᴅᴏɴᴀᴛᴇ ᴛᴏ ᴛʜᴇ ᴩᴇʀsᴏɴ ᴄᴜʀʀᴇɴᴛʟʏ ʀᴜɴɴɪɴɢ ᴍᴇ : [ʜᴇʀᴇ]({DONATE_STRING})",
                 parse_mode=ParseMode.MARKDOWN,
                 
@@ -1103,7 +1103,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        Mukesh_about_callback, pattern=r"mukesh_", run_async=True
+         Asuna_about_callback, pattern=r"mukesh_", run_async=True
     )
     source_callback_handler = CallbackQueryHandler(
         Source_about_callback, pattern=r"source_", run_async=True
@@ -1112,7 +1112,7 @@ def main():
         Music_about_callback, pattern=r"Music_",run_async=True
     )
     mukeshrobot_main_handler = CallbackQueryHandler(
-        MukeshRobot_Main_Callback, pattern=r".*_help",run_async=True)
+        AsunaRobot_Main_Callback, pattern=r".*_help",run_async=True)
     donate_handler = CommandHandler("donate", donate)
     migrate_handler = MessageHandler(Filters.status_update.migrate, migrate_chats)
     dispatcher.add_handler(start_handler)

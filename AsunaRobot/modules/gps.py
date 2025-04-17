@@ -21,7 +21,7 @@ async def gps(bot, message):
         ---------github :-NOOB-MUKESH -----
         ---------telegram : @itz_legend_coder-----
         """
-        geolocator = Nominatim(user_agent="legend-Mukesh")
+        geolocator = Nominatim(user_agent="legend- Asuna")
 #         zoom=[0-18]
 
 

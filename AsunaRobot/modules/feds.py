@@ -18,7 +18,7 @@ from telegram.error import BadRequest, TelegramError, Unauthorized
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 from telegram.utils.helpers import mention_html, mention_markdown
 
-import MukeshRobot.modules.sql.feds_sql as sql
+import AsunaRobot.modules.sql.feds_sql as sql
 from AsunaRobot import (
     DRAGONS,
     EVENT_LOGS,

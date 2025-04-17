@@ -6,7 +6,7 @@ from telegram import ChatPermissions, ParseMode, Update
 from telegram.error import BadRequest
 from telegram.ext import CallbackContext
 
-import MukeshRobot.modules.fun_strings as fun_strings
+import AsunaRobot.modules.fun_strings as fun_strings
 from AsunaRobot import dispatcher,OWNER_ID
 from AsunaRobot.modules.disable import DisableAbleCommandHandler
 from AsunaRobot.modules.helper_funcs.chat_status import is_user_admin

@@ -8,7 +8,7 @@ from pyrate_limiter import (
 from telegram import Update
 from telegram.ext import CommandHandler, Filters, MessageHandler, RegexHandler
 
-import MukeshRobot.modules.sql.blacklistusers_sql as sql
+import AsunaRobot.modules.sql.blacklistusers_sql as sql
 from AsunaRobot import ALLOW_EXCL, DEMONS, DEV_USERS, DRAGONS, TIGERS, WOLVES
 
 if ALLOW_EXCL:

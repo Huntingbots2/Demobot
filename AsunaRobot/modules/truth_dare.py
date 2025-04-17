@@ -2,15 +2,15 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.enums import ParseMode
-from MukeshAPI import api 
-from AsunaRobot import pbot as Mukesh
-@Mukesh.on_message(filters.command("truth"))
+from  AsunaAPI import api 
+from AsunaRobot import pbot as  Asuna
+@ Asuna.on_message(filters.command("truth"))
 async def truth_(client: Client, message: Message):
 
     truth =api.truth()
     await message.reply_text(truth)
 
-@Mukesh.on_message(filters.command("dare"))
+@ Asuna.on_message(filters.command("dare"))
 async def dare_(client: Client, message: Message):
 
     dare =api.dare()

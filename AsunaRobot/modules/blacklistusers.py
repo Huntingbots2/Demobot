@@ -6,7 +6,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler
 from telegram.utils.helpers import mention_html
 
-import MukeshRobot.modules.sql.blacklistusers_sql as sql
+import AsunaRobot.modules.sql.blacklistusers_sql as sql
 from AsunaRobot import DEMONS, DEV_USERS, DRAGONS, OWNER_ID, TIGERS, WOLVES, dispatcher
 from AsunaRobot.modules.helper_funcs.chat_status import dev_plus
 from AsunaRobot.modules.helper_funcs.extraction import (

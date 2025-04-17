@@ -21,11 +21,11 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import mention_html
 
-import MukeshRobot.modules.sql.chatbot_sql as sql
+import AsunaRobot.modules.sql.chatbot_sql as sql
 from AsunaRobot import BOT_ID, BOT_NAME, BOT_USERNAME, dispatcher
 from AsunaRobot.modules.helper_funcs.chat_status import user_admin, user_admin_no_reply
 from AsunaRobot.modules.log_channel import gloggable
-from MukeshAPI import api
+from  AsunaAPI import api
 
 @user_admin_no_reply
 @gloggable

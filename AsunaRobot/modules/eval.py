@@ -1,6 +1,6 @@
 """MIT License
 
-Copyright (c) 2023-24 Noob-Mukesh
+Copyright (c) 2023-24 Noob- Asuna
 
           GITHUB: NOOB-MUKESH
           TELEGRAM: @MR_SUKKUN
@@ -99,7 +99,7 @@ def do(func, bot, update):
 
     os.chdir(os.getcwd())
     with open(
-        os.path.join(os.getcwd(), "MukeshRobot/modules/helper_funcs/temp.txt"), "w"
+        os.path.join(os.getcwd(), "AsunaRobot/modules/helper_funcs/temp.txt"), "w"
     ) as temp:
         temp.write(body)
 

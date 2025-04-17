@@ -5,7 +5,7 @@ from pyrogram.types import Message
 from pyrogram.enums import ParseMode
 import aiohttp
 
-from AsunaRobot import pbot as Mukesh
+from AsunaRobot import pbot as  Asuna
 from AsunaRobot.modules.disable import DisableAbleCommandHandler
 
 
@@ -23,7 +23,7 @@ async def ud(client: Client, message: Message):
             await message.reply_text(reply_text, parse_mode=ParseMode.MARKDOWN)
 
 
-@Mukesh.on_message(filters.command("ud"))
+@ Asuna.on_message(filters.command("ud"))
 async def ud_command(client: Client, message: Message):
     await ud(client, message)
 

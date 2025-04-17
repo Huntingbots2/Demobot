@@ -1,6 +1,6 @@
-from AsunaRobot.modules.no_sql import Mukeshdb
+from AsunaRobot.modules.no_sql import  Asunadb
 
-afkdb = Mukeshdb.afk
+afkdb =  Asunadb.afk
 
 
 async def is_afk(user_id: int) -> bool:

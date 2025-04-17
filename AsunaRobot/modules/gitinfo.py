@@ -9,7 +9,7 @@ from AsunaRobot.utils.errors import capture_err
 @capture_err
 async def github(_, message):
     if len(message.command) != 2:
-        return await message.reply_text("/github {username} \n`/github Noob-Mukesh`")
+        return await message.reply_text("/github {username} \n`/github Noob- Asuna`")
     username = message.text.split(None, 1)[1]
     URL = f"https://api.github.com/users/{username}"
     async with ClientSession() as session:
@@ -29,8 +29,8 @@ async def github(_, message):
                 repositories = result["public_repos"]
                 followers = result["followers"]
                 following = result["following"]
-                global Mukesh
-                Mukesh = [[
+                global  Asuna
+                 Asuna = [[
             InlineKeyboardButton(text="ᴘʀᴏғɪʟᴇ ʟɪɴᴋ", url=url),
             InlineKeyboardButton("Cʟᴏsᴇ",callback_data="close_reply")
             ]]     
@@ -47,7 +47,7 @@ async def github(_, message):
             except Exception as e:
                 await message.reply(f"#ERROR {e}")
                   
-    await message.reply_photo(photo=avatar_url, caption=caption,reply_markup=InlineKeyboardMarkup(Mukesh))
+    await message.reply_photo(photo=avatar_url, caption=caption,reply_markup=InlineKeyboardMarkup( Asuna))
 
 
 __mod_name__ = "Gɪᴛʜᴜʙ"

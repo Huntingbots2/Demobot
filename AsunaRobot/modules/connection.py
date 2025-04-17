@@ -5,7 +5,7 @@ from telegram import Bot, InlineKeyboardButton, InlineKeyboardMarkup, ParseMode,
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackQueryHandler, CommandHandler
 
-import MukeshRobot.modules.sql.connection_sql as sql
+import AsunaRobot.modules.sql.connection_sql as sql
 from AsunaRobot import DEV_USERS, DRAGONS, dispatcher
 from AsunaRobot.modules.helper_funcs import chat_status
 from AsunaRobot.modules.helper_funcs.alternate import send_message, typing_action

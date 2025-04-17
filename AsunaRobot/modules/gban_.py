@@ -2,11 +2,11 @@
 # telegram : @legend_coder
 # github : noob-mukesh
 from pyrogram import filters
-from .. import pbot as Mukesh,OWNER_ID
+from .. import pbot as  Asuna,OWNER_ID
 from pyrogram.types import ChatPrivileges,ChatPermissions
 from pyrogram.types import *
 from AsunaRobot.modules.no_sql import add_gban,remove_gban,is_gban,get_served_chats,get_gban_list,is_user_ingbanned
-@Mukesh.on_message(filters.command("gban") & filters.user(OWNER_ID) & ( filters.group | filters.channel) )
+@ Asuna.on_message(filters.command("gban") & filters.user(OWNER_ID) & ( filters.group | filters.channel) )
 async def  banuser(b,message):
     reason=""
     if message.reply_to_message:
@@ -22,7 +22,7 @@ async def  banuser(b,message):
         print(r)
         reason+=r
     success=0
-    hm = await Mukesh.get_users(user)
+    hm = await  Asuna.get_users(user)
     try:
         all_chats =get_served_chats()
         for chat in all_chats:
@@ -36,7 +36,7 @@ async def  banuser(b,message):
         await message.reply_text(f"gbanned from {success} chats \n user :> {hm.mention()} reason {reason}")
     except Exception as e:
         await message.reply_text(f"failed due to {e}")
-@Mukesh.on_message(filters.command("ungban") & filters.user(OWNER_ID) & ( filters.group | filters.channel) )
+@ Asuna.on_message(filters.command("ungban") & filters.user(OWNER_ID) & ( filters.group | filters.channel) )
 async def  unbanuser(b,message):
     if message.reply_to_message:
         user = message.reply_to_message.from_user.id
@@ -47,7 +47,7 @@ async def  unbanuser(b,message):
         user = message.text.split(None, 1)[1]
        
     success=0
-    hm = await Mukesh.get_users(user)
+    hm = await  Asuna.get_users(user)
     try:
         all_chats =get_served_chats()
         for chat in all_chats:
@@ -61,7 +61,7 @@ async def  unbanuser(b,message):
         await message.reply_text(f"ungbanned from {success} chats \n user :> {hm.mention()}")
     except Exception as e:
         await message.reply_text(f"failed due to {e}")
-@Mukesh.on_message(filters.command("gbanlist") & filters.user(OWNER_ID))
+@ Asuna.on_message(filters.command("gbanlist") & filters.user(OWNER_ID))
 async def get_gban_listss(_,m)  :
     banned=get_gban_list()
     if len(get_gban_list())==0:

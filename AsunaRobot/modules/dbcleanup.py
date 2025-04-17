@@ -4,8 +4,8 @@ from telegram import InlineKeyboardButton, InlineKeyboardMarkup, Update
 from telegram.error import BadRequest, Unauthorized
 from telegram.ext import CallbackContext, CallbackQueryHandler, CommandHandler
 
-import MukeshRobot.modules.sql.global_bans_sql as gban_sql
-import MukeshRobot.modules.sql.users_sql as user_sql
+import AsunaRobot.modules.sql.global_bans_sql as gban_sql
+import AsunaRobot.modules.sql.users_sql as user_sql
 from AsunaRobot import DEV_USERS, OWNER_ID, dispatcher
 from AsunaRobot.modules.helper_funcs.chat_status import dev_plus
 

@@ -22,8 +22,8 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import escape_markdown, mention_html, mention_markdown
 
-import MukeshRobot
-import MukeshRobot.modules.sql.welcome_sql as sql
+import AsunaRobot
+import AsunaRobot.modules.sql.welcome_sql as sql
 from AsunaRobot import (
     DEMONS,
     DEV_USERS,
@@ -257,7 +257,7 @@ def new_member(update: Update, context: CallbackContext):
 
             # Welcome yourself
             elif new_mem.id == bot.id:
-                if not MukeshRobot.ALLOW_CHATS:
+                if not AsunaRobot.ALLOW_CHATS:
                     with suppress(BadRequest):
                         update.effective_message.reply_text(
                             f"ɢʀᴏᴜᴘ ᴀʀᴇ ᴅɪsᴀʙʟᴇᴅ ғᴏʀ {bot.first_name}, ɪ'ᴍ ʙᴜsʏ."

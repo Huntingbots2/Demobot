@@ -1,6 +1,6 @@
 """MIT License
 
-Copyright (c) 2023-24 Noob-Mukesh
+Copyright (c) 2023-24 Noob- Asuna
 
           GITHUB: NOOB-MUKESH
           TELEGRAM: @MR_SUKKUN
@@ -25,11 +25,11 @@ SOFTWARE."""
 from pyrogram import filters
 from pyrogram.types import  Message
 from pyrogram.types import InputMediaPhoto
-from .. import pbot as  Mukesh,BOT_USERNAME
-from MukeshAPI import api
+from .. import pbot as   Asuna,BOT_USERNAME
+from  AsunaAPI import api
 from pyrogram.enums import ChatAction,ParseMode
 
-@Mukesh.on_message(filters.command("imagine"))
+@ Asuna.on_message(filters.command("imagine"))
 async def imagine_(b, message: Message):
     if message.reply_to_message:
         text = message.reply_to_message.text

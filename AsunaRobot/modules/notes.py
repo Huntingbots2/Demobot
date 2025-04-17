@@ -21,7 +21,7 @@ from telegram.ext import (
 )
 from telegram.utils.helpers import escape_markdown, mention_markdown
 
-import MukeshRobot.modules.sql.notes_sql as sql
+import AsunaRobot.modules.sql.notes_sql as sql
 from AsunaRobot import DRAGONS, EVENT_LOGS, EVENT_LOGS, SUPPORT_CHAT, dispatcher
 from AsunaRobot.modules.disable import DisableAbleCommandHandler
 from AsunaRobot.modules.helper_funcs.chat_status import connection_status, user_admin

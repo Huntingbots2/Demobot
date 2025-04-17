@@ -6,7 +6,7 @@ from telegram.error import BadRequest
 from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
 from telegram.utils.helpers import mention_html, mention_markdown
 
-import MukeshRobot.modules.sql.blsticker_sql as sql
+import AsunaRobot.modules.sql.blsticker_sql as sql
 from AsunaRobot import LOGGER, dispatcher
 from AsunaRobot.modules.connection import connected
 from AsunaRobot.modules.disable import DisableAbleCommandHandler

@@ -1,10 +1,10 @@
 import requests
-from .. import pbot as Mukesh,BOT_NAME,BOT_USERNAME
+from .. import pbot as  Asuna,BOT_NAME,BOT_USERNAME
 import time
 from pyrogram.enums import ChatAction, ParseMode
 from pyrogram import filters
-from MukeshAPI import api
-@Mukesh.on_message(filters.command(["chatgpt","ai","ask"],  prefixes=["+", ".", "/", "-", "?", "$","#","&"]))
+from  AsunaAPI import api
+@ Asuna.on_message(filters.command(["chatgpt","ai","ask"],  prefixes=["+", ".", "/", "-", "?", "$","#","&"]))
 async def chat_gpt(bot, message):
     
     try:

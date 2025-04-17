@@ -6,7 +6,7 @@ from AsunaRobot.modules.no_sql.gban_db import *
 from AsunaRobot import  MONGO_DB_URI
 
 mongo = MongoCli(MONGO_DB_URI)
-Mukeshdb = mongo.MUK_ROB
+ Asunadb = mongo.MUK_ROB
 
 try:
     client = MongoClient(MONGO_DB_URI)
@@ -15,19 +15,19 @@ except PyMongoError:
 main_db = client["MUKESH_ROBOT"]
 
 
-MukeshXdb = main_db
+ AsunaXdb = main_db
 
 
 def get_collection(name: str) -> collection:
     """ɢᴇᴛ ᴛʜᴇ ᴄᴏʟʟᴇᴄᴛɪᴏɴ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ."""
-    return MukeshXdb[name]
+    return  AsunaXdb[name]
 
 
 class MongoDB:
     """Class for interacting with Bot database."""
 
     def __init__(self, collection) -> None:
-        self.collection = MukeshXdb[collection]
+        self.collection =  AsunaXdb[collection]
 
     # Insert one entry into collection
     def insert_one(self, document):
