@@ -1,13 +1,13 @@
 class Config(object):
     LOGGER = True
-    API_ID =None 
-    API_HASH = ""
+    API_ID = 3975570
+    API_HASH = "680b62f2844aa1954216f6cb99d2f3d9"
     TOKEN = ""  
     OWNER_ID=None
     
-    SUPPORT_CHAT = "" 
+    SUPPORT_CHAT = "AsunaRobotSupport" 
     START_IMG = ""
-    EVENT_LOGS = ()
+    EVENT_LOGS = -1001432768300
     MONGO_DB_URI= "mongodb+srv://ghost:ghost123@hunter.z1x1x.mongodb.net/?retryWrites=true&w=majority&appName=Hunter"
    
     DATABASE_URL = "postgresql://tghbot_owner:npg_jae9mlh4kOMN@ep-shy-feather-a4hofch2-pooler.us-east-1.aws.neon.tech/tghbot?sslmode=require"  # A sql database url from elephantsql.com
