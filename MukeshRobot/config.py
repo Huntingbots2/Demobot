@@ -10,7 +10,7 @@ class Config(object):
     EVENT_LOGS = ()
     MONGO_DB_URI= "mongodb+srv://ghost:ghost123@hunter.z1x1x.mongodb.net/?retryWrites=true&w=majority&appName=Hunter"
    
-    DATABASE_URL = ""  # A sql database url from elephantsql.com
+    DATABASE_URL = "postgresql://tghbot_owner:npg_jae9mlh4kOMN@ep-shy-feather-a4hofch2-pooler.us-east-1.aws.neon.tech/tghbot?sslmode=require"  # A sql database url from elephantsql.com
     CASH_API_KEY = (
         ""
     )
