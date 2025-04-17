@@ -64,7 +64,7 @@ RUN apt update && apt upgrade -y && \
 # Pypi package Repo upgrade
 RUN pip3 install --upgrade pip setuptools
 
-RUN git clone https://github.com/Noob-Mukesh/MukeshRobot /root/MukeshRobot
+RUN git clone https://github.com/Huntingbots2/AsunaRobot /root/AsunaRobot
 WORKDIR /root/AsunaRobot
 
 #Copy config file to /root/MukeshRobot/MukeshRobot
