@@ -7,13 +7,13 @@ from AsunaRobot import  MONGO_DB_URI
 from mongo import MUK_ROB
 
 mongo = MongoCli(MONGO_DB_URI)
- Asunadb = mongo.MUK_ROB
+ Asunadb = MUK_ROB
 
 try:
     client = MongoClient(MONGO_DB_URI)
 except PyMongoError:
     exiter(1)
-main_db = client["MUKESH_ROBOT"]
+main_db = client["ASUNA_ROBOT"]
 
 
  AsunaXdb = main_db
