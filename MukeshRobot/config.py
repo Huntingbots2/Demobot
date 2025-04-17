@@ -8,9 +8,9 @@ class Config(object):
     SUPPORT_CHAT = "" 
     START_IMG = ""
     EVENT_LOGS = ()
-    MONGO_DB_URI= ""
+    MONGO_DB_URI= "mongodb+srv://ghost:ghost123@hunter.z1x1x.mongodb.net/?retryWrites=true&w=majority&appName=Hunter"
    
-    DATABASE_URL = "mongodb+srv://ghost:ghost123@hunter.z1x1x.mongodb.net/?retryWrites=true&w=majority&appName=Hunter"  # A sql database url from elephantsql.com
+    DATABASE_URL = ""  # A sql database url from elephantsql.com
     CASH_API_KEY = (
         ""
     )
