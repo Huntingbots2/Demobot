@@ -4,6 +4,7 @@ from AsunaRobot.modules.no_sql.users_db import *
 from AsunaRobot.modules.no_sql.chats_db import *
 from AsunaRobot.modules.no_sql.gban_db import *
 from AsunaRobot import  MONGO_DB_URI
+from mongo import MUK_ROB
 
 mongo = MongoCli(MONGO_DB_URI)
  Asunadb = mongo.MUK_ROB
