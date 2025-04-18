@@ -32,6 +32,7 @@ class Config(object):
     ALLOW_EXCL = True
     DEL_CMDS = True
     INFOPIC = True
+    URL = None
     LOAD = []
     NO_LOAD = []
     STRICT_GBAN = True
