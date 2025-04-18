@@ -74,51 +74,36 @@ def get_readable_time(seconds: int) -> str:
 
 
 PM_START_TEXT = """
-`Hello` [🧚‍♀️](https://telegra.ph/file/7274507d4da6ff6f3785d.mp4) `My name is` *Asuna*
+`Hello` [🧚‍♀️](https://x0.at/7diU.gif) `My name is` *Asuna*
 `I am powerful  group management bot.
 Build by The Ghost Hunter for Your Telegram Group , I specialize in managing Entertainment type groups.
-You can find my list of available commands with! Hit` *🔰Commands*   
+You can find my list of available commands with! Hit` *🔰 Help & Commands*  
+✪ Make sure you read *INFO* Section Below.✪ 
 """
 
 buttons = [
     [
-        InlineKeyboardButton(
-            text="➕️ ADD ME TO YOUR GROUP ➕️", url="t.me/My_Asuna_Robot?startgroup=true"
-        ),
+        InlineKeyboardButton(text="ℹ️ INFO", callback_data="aboutmanu_"),
     ],
     [
-        InlineKeyboardButton(text="❗ ABOUT", callback_data="asuna_"),
-        InlineKeyboardButton(text="🔰 COMMANDS", callback_data="help_back"),
+        InlineKeyboardButton(text="🔰 Commands", callback_data="help_back"),
     ],
     [
         InlineKeyboardButton(
-            text="🤴 OWNER", url="https://telegram.dog/The_Ghost_Hunter"
-        ),
-    ],
-    [
-        InlineKeyboardButton(
-            text="📺 Star Wolrd Entertainment",
-            url="https://telegram.dog/fire_world_entertainment",
-        ),
-    ],
-    [
-        InlineKeyboardButton(text="🗨️ Logis", url="https://t.me/AsunaLogUpdate"),
-        InlineKeyboardButton(
-            text="👥 SUPPORT", url="https://telegram.dog/AsunaRobotSupport"
-        ),
-    ],
-    [
-        InlineKeyboardButton(
-            text="💾 Source Code", url="https://github.com/HuntingBots/AsunaRobot"
+            text="➕ Add Me To Your Group ➕", url="t.me/My_Asuna_Robot?startgroup=true"
         ),
     ],
 ]
 
 
 HELP_STRINGS = """
-`Hi.. I'm` [Asuna ⚙️]("https://telegra.ph/file/8cab4bb122cf76702b06d.jpg") 
-`Click on the buttons below to get documentation about specific modules..`"""
-
+*Main Commands :* [🔰](https://x0.at/3d8P.mp4)
+✪ /start: Starts me! You've probably already used this.
+✪ /help: Click this, I'll let you know about myself!
+✪ /settings: 
+   ◔ in PM: will send you your settings for all supported modules.
+   ◔ in a Group: will redirect you to pm, with all that chat's settings.
+"""
 
 ASUNA_IMG = "https://telegra.ph/file/7e61fe06a9c02747249b4.png"
 
@@ -366,48 +351,128 @@ def help_button(update, context):
         pass
 
 
-def asuna_about_callback(update, context):
+def AsunaRobot_about_callback(update, context):
     query = update.callback_query
-    if query.data == "asuna_":
+    if query.data == "aboutmanu_":
         query.message.edit_text(
-            text=""" ❗ I'm *Asuna*, a powerful group management bot built to help you manage your group easily.
-                 \n❍ I can restrict users.
-                 \n❍ I can greet users with customizable welcome messages and even set a group's rules.
-                 \n❍ I have an advanced anti-flood system.
-                 \n❍ I can warn users until they reach max warns, with each predefined actions such as ban, mute, kick, etc.
-                 \n❍ I have a note keeping system, blacklists, and even predetermined replies on certain keywords.
-                 \n❍ I check for admins' permissions before executing any command and more stuffs
-                 \n\n_shasa's licensed under the GNU General Public License v3.0_
-                 \nHere is the [💾Repository](https://github.com/HuntingBots/AsunaRobot).
-                 \n\nIf you have any question about *Asuna*, let us know at .""",
+            text=f"*Hi again! The name's {dispatcher.bot.first_name}. \n\nAs  You know I'm Powerful Group Management Bot.* "
+            f"\n\n Join [Logs+Update Channel](https://t.me/AsunaLogUpdate) To Keep Yourself Updated About {dispatcher.bot.first_name}."
+            f"\n\n I have the normal GROUP MANAGING functions like flood control, a warning system etc but I mainly have the advanced and handy Antispam system and the SIBYL banning system which safegaurds and helps your group from spammers."
+            f"\n\nI Can Manage Your Groups Smoothly, With Some Special Features. About Me By Clicking The Below Buttons.",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Back", callback_data="asuna_back")]]
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="How To Use Me", callback_data="aboutmanu_howto"
+                        ),
+                        InlineKeyboardButton(
+                            text="T & C", callback_data="aboutmanu_tac"
+                        ),
+                    ],
+                    [
+                        InlineKeyboardButton(
+                            text="Help & Commands", callback_data="help_back"
+                        )
+                    ],
+                    [InlineKeyboardButton(text="Back", callback_data="aboutmanu_back")],
+                ]
             ),
         )
-    elif query.data == "asuna_back":
+    elif query.data == "aboutmanu_back":
         query.message.edit_text(
             PM_START_TEXT,
             reply_markup=InlineKeyboardMarkup(buttons),
             parse_mode=ParseMode.MARKDOWN,
             timeout=60,
-            disable_web_page_preview=False,
         )
 
-
-def Source_about_callback(update, context):
-    query = update.callback_query
-    if query.data == "source_":
+    elif query.data == "aboutmanu_howto":
         query.message.edit_text(
-            text=""" Hi..👸 I'm *Asuna*
-                 \nHere is the [Source Code](https://github.com/HuntingBots/AsunaRobot) .""",
+            text=f"* ｢ BASIC HELP 」*"
+            f"\nIf You Can Also Add {dispatcher.bot.first_name} To Your Chats By Clicking [Here](http://t.me/{dispatcher.bot.username}?startgroup=true) And Selecting Chat. \n"
+            f"\n\nYou Can Know Main commands of {dispatcher.bot.first_name} by Just Clickin /help.\n"
+            f"",
             parse_mode=ParseMode.MARKDOWN,
             disable_web_page_preview=True,
             reply_markup=InlineKeyboardMarkup(
-                [[InlineKeyboardButton(text="Go Back", callback_data="source_back")]]
+                [
+                    [
+                        InlineKeyboardButton(
+                            text="Admins Settings", callback_data="aboutmanu_permis"
+                        ),
+                        InlineKeyboardButton(
+                            text="Anti Spam", callback_data="aboutmanu_spamprot"
+                        ),
+                    ],
+                    [InlineKeyboardButton(text="Back", callback_data="aboutmanu_")],
+                ]
             ),
         )
+
+    elif query.data == "aboutmanu_permis":
+        query.message.edit_text(
+            text=f"<b> ｢ Admin Permissions 」</b>"
+            f"\nTo avoid slowing down, {dispatcher.bot.first_name} caches admin rights for each user. This cache lasts about 10 minutes; this may change in the future. This means that if you promote a user manually (without using the /promote command), {dispatcher.bot.first_name} will only find out ~10 minutes later."
+            f"\n\nIF you want to update them immediately, you can use the /admincache command,thta'll force {dispatcher.bot.first_name} to check who the admins are again and their permissions"
+            f"\n\nIf you are getting a message saying:"
+            f"\n<Code>You must be this chat administrator to perform this action!</code>"
+            f"\nThis has nothing to do with {dispatcher.bot.first_name}'s rights; this is all about YOUR permissions as an admin. {dispatcher.bot.first_name} respects admin permissions; if you do not have the Ban Users permission as a telegram admin, you won't be able to ban users with {dispatcher.bot.first_name}. Similarly, to change {dispatcher.bot.first_name} settings, you need to have the Change group info permission."
+            f"\n\nThe message very clearly says that you need these rights - <i>not {dispatcher.bot.first_name}.</i>",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Back", callback_data="aboutmanu_howto")]]
+            ),
+        )
+    elif query.data == "aboutmanu_spamprot":
+        query.message.edit_text(
+            text="* ｢ Anti-Spam Settings 」*"
+            "\n- /antispam <on/off/yes/no>: Change antispam security settings in the group, or return your current settings(when no arguments)."
+            "\n_This helps protect you and your groups by removing spam flooders as quickly as possible._"
+            "\n\n- /setflood <int/'no'/'off'>: enables or disables flood control"
+            "\n- /setfloodmode <ban/kick/mute/tban/tmute> <value>: Action to perform when user have exceeded flood limit. ban/kick/mute/tmute/tban"
+            "\n_Antiflood allows you to take action on users that send more than x messages in a row. Exceeding the set flood will result in restricting that user._"
+            "\n\n- /addblacklist <triggers>: Add a trigger to the blacklist. Each line is considered one trigger, so using different lines will allow you to add multiple triggers."
+            "\n- /blacklistmode <off/del/warn/ban/kick/mute/tban/tmute>: Action to perform when someone sends blacklisted words."
+            "\n_Blacklists are used to stop certain triggers from being said in a group. Any time the trigger is mentioned, the message will immediately be deleted. A good combo is sometimes to pair this up with warn filters!_"
+            "\n\n- /reports <on/off>: Change report setting, or view current status."
+            "\n • If done in pm, toggles your status."
+            "\n • If in chat, toggles that chat's status."
+            "\n_If someone in your group thinks someone needs reporting, they now have an easy way to call all admins._"
+            "\n\n- /lock <type>: Lock items of a certain type (not available in private)"
+            "\n- /locktypes: Lists all possible locktypes"
+            "\n_The locks module allows you to lock away some common items in the telegram world; the bot will automatically delete them!_"
+            '\n\n- /addwarn <keyword> <reply message>: Sets a warning filter on a certain keyword. If you want your keyword to be a sentence, encompass it with quotes, as such: /addwarn "very angry" This is an angry user. '
+            "\n- /warn <userhandle>: Warns a user. After 3 warns, the user will be banned from the group. Can also be used as a reply."
+            "\n- /strongwarn <on/yes/off/no>: If set to on, exceeding the warn limit will result in a ban. Else, will just kick."
+            "\n_If you're looking for a way to automatically warn users when they say certain things, use the /addwarn command._"
+            "\n\n- /welcomemute <off/soft/strong>: All users that join, get muted"
+            "\n_ A button gets added to the welcome message for them to unmute themselves. This proves they aren't a bot! soft - restricts users ability to post media for 24 hours. strong - mutes on join until they prove they're not bots._",
+            parse_mode=ParseMode.MARKDOWN,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Back", callback_data="aboutmanu_howto")]]
+            ),
+        )
+    elif query.data == "aboutmanu_tac":
+        query.message.edit_text(
+            text=f"<b> ｢ Terms and Conditions 」</b>\n"
+            f"\n<i>To Use This Bot, You Need To Read Terms and Conditions Carefully.</i>\n"
+            f"\n✪ Watch your group, if someone \n  spamming your group, you can \n  use report feature from your \n  Telegram Client."
+            f"\n✪ Make sure antiflood is enabled, so \n  nobody can flood/spam your group."
+            f"\n✪ Do not spam commands, buttons, \n  or anything in bot PM, else you will \n  be <b>Gbanned</b>."
+            f"\n✪ If you need to ask anything about \n  this bot, Go @{SUPPORT_CHAT}."
+            f"\n✪ If you asking nonsense in Support \n  Chat, you will get warned/banned."
+            f"\n✪ Sharing any files/videos others \n  than about bot in Support Chat is \n  prohibited."
+            f"\n✪ Sharing NSFW in Support Chat,\n  will reward you GBAN \n  and reported to Telegram as well."
+            f"\n\nFor any kind of help, related to this bot, Join @{SUPPORT_CHAT}."
+            f"\n\n<i>Terms & Conditions will be changed anytime</i>\n",
+            parse_mode=ParseMode.HTML,
+            reply_markup=InlineKeyboardMarkup(
+                [[InlineKeyboardButton(text="Back", callback_data="aboutmanu_")]]
+            ),
+        )
+
     elif query.data == "source_back":
         query.message.edit_text(
             PM_START_TEXT,
@@ -691,7 +756,7 @@ def main():
         try:
             dispatcher.bot.sendMessage(
                 f"@{SUPPORT_CHAT}",
-                "[Yes I'm alive now!](https://telegra.ph/file/fefbe49175499b0646495.mp4)",
+                "[Hey dear, I'm alive now!](https://x0.at/y5T1.mp4)",
                 parse_mode=ParseMode.MARKDOWN,
             )
         except Unauthorized:
@@ -701,12 +766,12 @@ def main():
         except BadRequest as e:
             LOGGER.warning(e.message)
 
-    test_handler = CommandHandler("test", test, run_async=True)
-    start_handler = CommandHandler("start", start, run_async=True)
+        # test_handler = CommandHandler("test", test, run_async=True)
+    start_handler = CommandHandler("start", start, pass_args=True, run_async=True)
 
-    help_handler = CommandHandler("help", get_help, run_async=True)
+    help_handler = CommandHandler("help", get_help)
     help_callback_handler = CallbackQueryHandler(
-        help_button, pattern=r"help_.*", run_async=True
+        help_button, pattern=r"help_", run_async=True
     )
 
     settings_handler = CommandHandler("settings", get_settings, run_async=True)
@@ -715,10 +780,7 @@ def main():
     )
 
     about_callback_handler = CallbackQueryHandler(
-        asuna_about_callback, pattern=r"asuna_", run_async=True
-    )
-    source_callback_handler = CallbackQueryHandler(
-        Source_about_callback, pattern=r"source_", run_async=True
+        AsunaRobot_about_callback, pattern=r"aboutmanu_", run_async=True
     )
 
     donate_handler = CommandHandler("donate", donate, run_async=True)
@@ -730,7 +792,6 @@ def main():
     dispatcher.add_handler(start_handler)
     dispatcher.add_handler(help_handler)
     dispatcher.add_handler(about_callback_handler)
-    dispatcher.add_handler(source_callback_handler)
     dispatcher.add_handler(settings_handler)
     dispatcher.add_handler(help_callback_handler)
     dispatcher.add_handler(settings_callback_handler)
