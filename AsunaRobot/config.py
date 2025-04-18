@@ -26,13 +26,14 @@ class Config(object):
     ALLOW_CHATS = True
     DONATION_LINK = None  # EG, paypal
     CERT_PATH = None
+    URL = None
     PORT = 5000
     DEL_CMDS = True  # Delete commands that users dont have access to, like delete /ban if a non admin uses it.
     STRICT_GBAN = True
     ALLOW_EXCL = True
     DEL_CMDS = True
     INFOPIC = True
-    URL = None
+    WEBHOOK = False
     LOAD = []
     NO_LOAD = []
     STRICT_GBAN = True
