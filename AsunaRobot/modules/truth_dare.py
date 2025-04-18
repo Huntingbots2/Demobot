@@ -2,7 +2,7 @@
 from pyrogram import Client, filters
 from pyrogram.types import Message
 from pyrogram.enums import ParseMode
-from  AsunaAPI import api 
+from  MukeshAPI import api 
 from AsunaRobot import pbot as  Asuna
 @ Asuna.on_message(filters.command("truth"))
 async def truth_(client: Client, message: Message):
