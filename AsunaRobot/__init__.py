@@ -46,6 +46,7 @@ if ENV:
     EVENT_LOGS = os.environ.get("EVENT_LOGS", None)
     INFOPIC = bool(os.environ.get("INFOPIC", "True"))
     LOAD = os.environ.get("LOAD", "").split()
+    URL = os.environ.get("URL", "")
     MONGO_DB_URI = os.environ.get("MONGO_DB_URI", None)
     NO_LOAD = os.environ.get("NO_LOAD", "").split()
     START_IMG = os.environ.get(
@@ -105,6 +106,7 @@ else:
     EVENT_LOGS = Config.EVENT_LOGS
     INFOPIC = Config.INFOPIC
     LOAD = Config.LOAD
+    URL = Config.URL
     MONGO_DB_URI = Config.MONGO_DB_URI
     NO_LOAD = Config.NO_LOAD
     START_IMG = Config.START_IMG
