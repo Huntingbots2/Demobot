@@ -1,25 +1,19 @@
 from io import BytesIO
 from time import sleep
-from pyrogram import filters
-from pyrogram.types import Message
+
 from telegram import TelegramError, Update
 from telegram.error import BadRequest, Unauthorized
-from telegram.ext import CallbackContext, CommandHandler, Filters, MessageHandler
-# import AsunaRobot.modules.no_sql.users_db as user_db 
-from AsunaRobot import pbot as  Asuna
-from AsunaRobot import DEV_USERS, LOGGER as  logger, OWNER_ID, dispatcher
-from AsunaRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
-# from AsunaRobot.modules.no_sql.users_db import get_all_users
-from AsunaRobot.modules.no_sql import get_served_chats,get_served_users,remove_served_chat,remove_served_users
-from pyrogram import Client
-from pyrogram.types import Message
-from pyrogram.errors import (
-    FloodWait,
-    InputUserDeactivated,
-    UserIsBlocked,
-    PeerIdInvalid,
+from telegram.ext import (
+    CallbackContext,
+    CommandHandler,
+    Filters,
+    MessageHandler,
 )
-import time, asyncio, logging, datetime
+
+import AsunaRobot.modules.sql.users_sql as sql
+from AsunaRobot import DEV_USERS, LOGGER, OWNER_ID, dispatcher
+from AsunaRobot.modules.helper_funcs.chat_status import dev_plus, sudo_plus
+from AsunaRobot.modules.sql.users_sql import get_all_users
 
 USERS_GROUP = 4
 CHAT_GROUP = 5
@@ -34,156 +28,166 @@ def get_user_id(username):
     if username.startswith("@"):
         username = username[1:]
 
-    users = user_db.get_userid_by_name(username)
+    users = sql.get_userid_by_name(username)
 
     if not users:
         return None
 
     if len(users) == 1:
-        return users[0]["_id"]
-
-    # for user_obj in users:
+        return users[0].user_id
+    for user_obj in users:
         try:
-            userdat = dispatcher.bot.get_chat(user_obj["_id"])
+            userdat = dispatcher.bot.get_chat(user_obj.user_id)
             if userdat.username == username:
                 return userdat.id
 
         except BadRequest as excp:
-            if excp.message != "Chat not found":
-                logger.exception("Error extracting user ID")
+            if excp.message == "Chat not found":
+                pass
+            else:
+                LOGGER.exception("Error extracting user ID")
 
     return None
 
 
+@dev_plus
+def broadcast(update: Update, context: CallbackContext):
+    to_send = update.effective_message.text.split(None, 1)
 
-# @dev_plus
-@ Asuna.on_message(filters.command(["bchat","broadcastgroups"]) & filters.user(OWNER_ID) & filters.reply)
-async def broadcast_handler(bot: Client, m: Message):
-    all_chats = get_served_chats() or []
-    await bot.send_message(
-        OWNER_ID,
-        f"{m.from_user.mention} or {m.from_user.id} Iꜱ ꜱᴛᴀʀᴛᴇᴅ ᴛʜᴇ Bʀᴏᴀᴅᴄᴀꜱᴛ......",
-    )
-    broadcast_msg = m.reply_to_message
-    sts_msg = await m.reply_text(f"broadcasting ..")
-    done = 0
-    failed = 0
-    success = 0
-    start_time = time.time()
-    total_chats = len(get_served_chats())
-
-    for chat in all_chats:
-        sts = await send_chat(chat["chat_id"], broadcast_msg)
-
-        if sts == 200:
-            success += 1
+    if len(to_send) >= 2:
+        to_group = False
+        to_user = False
+        if to_send[0] == "/broadcastgroups":
+            to_group = True
+        if to_send[0] == "/broadcastusers":
+            to_user = True
         else:
-            failed += 1
-        if sts == 400:
-            pass
-        done += 1
-        if not done % 20:
-            await sts_msg.edit(
-                f"Bʀᴏᴀᴅᴄᴀꜱᴛ Iɴ Pʀᴏɢʀᴇꜱꜱ: \nTᴏᴛᴀʟ ᴄʜᴀᴛꜱ  {total_chats} \nCᴏᴍᴩʟᴇᴛᴇᴅ: {done} / {total_chats}\nSᴜᴄᴄᴇꜱꜱ: {success}\nFᴀɪʟᴇᴅ: {failed}"
+            to_group = to_user = True
+        chats = sql.get_all_chats() or []
+        users = get_all_users()
+        failed = 0
+        failed_user = 0
+        if to_group:
+            for chat in chats:
+                try:
+                    context.bot.sendMessage(
+                        int(chat.chat_id),
+                        to_send[1],
+                        parse_mode="MARKDOWN",
+                        disable_web_page_preview=True,
+                    )
+                    sleep(0.1)
+                except TelegramError:
+                    failed += 1
+        if to_user:
+            for user in users:
+                try:
+                    context.bot.sendMessage(
+                        int(user.user_id),
+                        to_send[1],
+                        parse_mode="MARKDOWN",
+                        disable_web_page_preview=True,
+                    )
+                    sleep(0.1)
+                except TelegramError:
+                    failed_user += 1
+        update.effective_message.reply_text(
+            f"Broadcast complete.\nGroups failed: {failed}.\nUsers failed: {failed_user}.",
+        )
+
+
+def log_user(update: Update, context: CallbackContext):
+    chat = update.effective_chat
+    msg = update.effective_message
+
+    sql.update_user(msg.from_user.id, msg.from_user.username, chat.id, chat.title)
+
+    if msg.reply_to_message:
+        sql.update_user(
+            msg.reply_to_message.from_user.id,
+            msg.reply_to_message.from_user.username,
+            chat.id,
+            chat.title,
+        )
+
+    if msg.forward_from:
+        sql.update_user(msg.forward_from.id, msg.forward_from.username)
+
+
+@sudo_plus
+def chats(update: Update, context: CallbackContext):
+    all_chats = sql.get_all_chats() or []
+    chatfile = "List of chats.\n0. Chat name | Chat ID | Members count\n"
+    P = 1
+    for chat in all_chats:
+        try:
+            curr_chat = context.bot.getChat(chat.chat_id)
+            bot_member = curr_chat.get_member(context.bot.id)
+            chat_members = curr_chat.get_members_count(context.bot.id)
+            chatfile += "{}. {} | {} | {}\n".format(
+                P,
+                chat.chat_name,
+                chat.chat_id,
+                chat_members,
             )
-    completed_in = datetime.timedelta(seconds=int(time.time() - start_time))
-    await sts_msg.edit(
-        f"Bʀᴏᴀᴅᴄᴀꜱᴛ Cᴏᴍᴩʟᴇᴛᴇᴅ: \nCᴏᴍᴩʟᴇᴛᴇᴅ Iɴ {completed_in}.\n\nTᴏᴛᴀʟ ᴄʜᴀᴛꜱ {total_chats}\nCᴏᴍᴩʟᴇᴛᴇᴅ: {done} / {total_chats}\nSᴜᴄᴄᴇꜱꜱ: {success}\nFᴀɪʟᴇᴅ: {failed}"
-    )
+            P = P + 1
+        except:
+            pass
+
+    with BytesIO(str.encode(chatfile)) as output:
+        output.name = "groups_list.txt"
+        update.effective_message.reply_document(
+            document=output,
+            filename="groups_list.txt",
+            caption="Here be the list of groups in my database.",
+        )
 
 
-async def send_chat(chat_id, message):
+def chat_checker(update: Update, context: CallbackContext):
+    bot = context.bot
     try:
-        await message.forward(chat_id=int(chat_id))
-        return 200
-    except FloodWait as e:
-        await asyncio.sleep(e.value)
-        return send_msg(chat_id, message)
-    except InputUserDeactivated:
-        remove_served_chat(chat_id)
-        logger.info(f"{chat_id} : Dᴇᴀᴄᴛɪᴠᴀᴛᴇᴅ")
-        
-        return 400
-    except UserIsBlocked:
-        remove_served_chat(chat_id)
-        logger.info(f"{chat_id} : Bʟᴏᴄᴋᴇᴅ Tʜᴇ Bᴏᴛ")
-        return 400
-    except PeerIdInvalid:
-        remove_served_chat(chat_id)
-        logger.info(f"{chat_id} : Uꜱᴇʀ Iᴅ Iɴᴠᴀʟɪᴅ")
-        return 400
-    except Exception as e:
-        remove_served_chat(chat_id)
-        logger.error(f"{chat_id} : {e}")
+        if update.effective_message.chat.get_member(bot.id).can_send_messages is False:
+            bot.leaveChat(update.effective_message.chat.id)
+    except Unauthorized:
         pass
 
-# @dev_plus
-# broadcast
-@ Asuna.on_message(filters.command(["buser","broadcastusers"]) & filters.user(OWNER_ID) & filters.reply)
-async def broadcast_handler(bot: Client, m: Message):
-    all_users = get_served_users()
-    await bot.send_message(
-        OWNER_ID,
-        f"{m.from_user.mention} or {m.from_user.id} Iꜱ ꜱᴛᴀʀᴛᴇᴅ ᴛʜᴇ Bʀᴏᴀᴅᴄᴀꜱᴛ......",
-    )
-    broadcast_msg = m.reply_to_message
-    sts_msg = await m.reply_text(f"broadcasting ..")
-    done = 0
-    failed = 0
-    success = 0
-    start_time = time.time()
-    total_users = len(get_served_users())
-    for user in all_users:
-        sts = await send_msg(user["user_id"], broadcast_msg)
-        if sts == 200:
-            success += 1
-        else:
-            failed += 1
-        if sts == 400:
-            pass
-        done += 1
-        if not done % 20:
-            await sts_msg.edit(
-                f"Bʀᴏᴀᴅᴄᴀꜱᴛ Iɴ Pʀᴏɢʀᴇꜱꜱ: \nTᴏᴛᴀʟ Uꜱᴇʀꜱ {total_users} \nCᴏᴍᴩʟᴇᴛᴇᴅ: {done} / {total_users}\nSᴜᴄᴄᴇꜱꜱ: {success}\nFᴀɪʟᴇᴅ: {failed}"
-            )
-    completed_in = datetime.timedelta(seconds=int(time.time() - start_time))
-    await sts_msg.edit(
-        f"Bʀᴏᴀᴅᴄᴀꜱᴛ Cᴏᴍᴩʟᴇᴛᴇᴅ: \nCᴏᴍᴩʟᴇᴛᴇᴅ Iɴ {completed_in}.\n\nTᴏᴛᴀʟ Uꜱᴇʀꜱ {total_users}\nCᴏᴍᴩʟᴇᴛᴇᴅ: {done} / {total_users}\nSᴜᴄᴄᴇꜱꜱ: {success}\nFᴀɪʟᴇᴅ: {failed}"
-    )
 
-
-async def send_msg(user_id, message):
-    try:
-        await message.forward(user_id)
-        return 200
-    except FloodWait as e:
-        await asyncio.sleep(e.value)
-        return send_msg(user_id, message)
-    except InputUserDeactivated:
-        remove_served_users(user_id)
-        logger.info(f"{user_id} : Dᴇᴀᴄᴛɪᴠᴀᴛᴇᴅ")
-        return 400
-    except UserIsBlocked:
-        remove_served_users(user_id)
-        logger.info(f"{user_id} : Bʟᴏᴄᴋᴇᴅ Tʜᴇ Bᴏᴛ")
-        return 400
-    except PeerIdInvalid:
-        remove_served_users(user_id)
-        logger.info(f"{user_id} : Uꜱᴇʀ Iᴅ Iɴᴠᴀʟɪᴅ")
-        return 400
-    except Exception as e:
-        logger.error(f"{user_id} : {e}")
-        return 500
-
-
-
+def __user_info__(user_id):
+    if user_id in [777000, 1087968824]:
+        return """╘══「 Groups count: <code>???</code> 」"""
+    if user_id == dispatcher.bot.id:
+        return """╘══「 Groups count: <code>???</code> 」"""
+    num_chats = sql.get_user_num_chats(user_id)
+    return f"""╘══「 Groups count: <code>{num_chats}</code> 」"""
 
 
 def __stats__():
-    return f"• {len(get_served_users())} ᴜsᴇʀs, ᴀᴄʀᴏss {len(get_served_chats())} ᴄʜᴀᴛs"
+    return f"• {sql.num_users()} users, across {sql.num_chats()} chats"
 
 
 def __migrate__(old_chat_id, new_chat_id):
-    user_db.migrate_chat(old_chat_id, new_chat_id)
+    sql.migrate_chat(old_chat_id, new_chat_id)
 
 
+__help__ = ""  # no help string
+
+BROADCAST_HANDLER = CommandHandler(
+    ["broadcastall", "broadcastusers", "broadcastgroups"],
+    broadcast,
+    run_async=True,
+)
+USER_HANDLER = MessageHandler(
+    Filters.all & Filters.chat_type.groups, log_user, run_async=True
+)
+CHAT_CHECKER_HANDLER = MessageHandler(
+    Filters.all & Filters.chat_type.groups, chat_checker, run_async=True
+)
+CHATLIST_HANDLER = CommandHandler("groups", chats, run_async=True)
+
+dispatcher.add_handler(USER_HANDLER, USERS_GROUP)
+dispatcher.add_handler(BROADCAST_HANDLER)
+dispatcher.add_handler(CHATLIST_HANDLER)
+dispatcher.add_handler(CHAT_CHECKER_HANDLER, CHAT_GROUP)
+
+__mod_name__ = "Users"
+__handlers__ = [(USER_HANDLER, USERS_GROUP), BROADCAST_HANDLER, CHATLIST_HANDLER]
