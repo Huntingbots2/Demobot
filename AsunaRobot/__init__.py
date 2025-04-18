@@ -57,6 +57,8 @@ if ENV:
     SUPPORT_CHAT = os.environ.get("SUPPORT_CHAT", "worldwide_friend_zone")
     TEMP_DOWNLOAD_DIRECTORY = os.environ.get("TEMP_DOWNLOAD_DIRECTORY", "./")
     TOKEN = os.environ.get("TOKEN", None)
+    SPAMWATCH_SUPPORT_CHAT = os.environ.get("SPAMWATCH_SUPPORT_CHAT", None)
+    SPAMWATCH_API = os.environ.get("SPAMWATCH_API", None)
     TIME_API_KEY = os.environ.get("TIME_API_KEY", None)
     WORKERS = int(os.environ.get("WORKERS", 8))
 
@@ -116,6 +118,8 @@ else:
     SUPPORT_CHAT = Config.SUPPORT_CHAT
     TEMP_DOWNLOAD_DIRECTORY = Config.TEMP_DOWNLOAD_DIRECTORY
     TOKEN = Config.TOKEN
+    SPAMWATCH_SUPPORT_CHAT = Config.SPAMWATCH_SUPPORT_CHAT
+    SPAMWATCH_API = Config.SPAMWATCH_API
     TIME_API_KEY = Config.TIME_API_KEY
     WORKERS = Config.WORKERS
 
