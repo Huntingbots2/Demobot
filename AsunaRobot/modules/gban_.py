@@ -26,7 +26,6 @@ from AsunaRobot import (
     DEMONS,
     TIGERS,
     WOLVES,
-    sw,
     dispatcher,
 )
 from AsunaRobot.modules.helper_funcs.chat_status import (
