@@ -7,7 +7,7 @@ from AsunaRobot import  MONGO_DB_URI
 from mongo import MUK_ROB
 
 mongo = MongoCli(MONGO_DB_URI)
- Asunadb = MUK_ROB
+Asunadb = MUK_ROB
 
 try:
     client = MongoClient(MONGO_DB_URI)
@@ -15,20 +15,19 @@ except PyMongoError:
     exiter(1)
 main_db = client["ASUNA_ROBOT"]
 
-
- AsunaXdb = main_db
+AsunaXdb = main_db
 
 
 def get_collection(name: str) -> collection:
     """ɢᴇᴛ ᴛʜᴇ ᴄᴏʟʟᴇᴄᴛɪᴏɴ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ."""
-    return  AsunaXdb[name]
+    return AsunaXdb[name]
 
 
 class MongoDB:
     """Class for interacting with Bot database."""
 
     def __init__(self, collection) -> None:
-        self.collection =  AsunaXdb[collection]
+        self.collection = AsunaXdb[collection]
 
     # Insert one entry into collection
     def insert_one(self, document):
