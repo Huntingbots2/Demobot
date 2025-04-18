@@ -36,6 +36,9 @@ if ENV:
     API_HASH = os.environ.get("API_HASH", None)
     
     ALLOW_CHATS = os.environ.get("ALLOW_CHATS", True)
+    DONATION_LINK = os.environ.get("DONATION_LINK")
+    PORT = int(os.environ.get("PORT", 5000))
+    CERT_PATH = os.environ.get("CERT_PATH")
     ALLOW_EXCL = os.environ.get("ALLOW_EXCL", False)
     CASH_API_KEY = os.environ.get("CASH_API_KEY", None)
     DB_URI = os.environ.get("DATABASE_URL")
@@ -92,6 +95,9 @@ else:
     API_ID = Config.API_ID
     API_HASH = Config.API_HASH
     ALLOW_CHATS = Config.ALLOW_CHATS
+    DONATION_LINK = Config.DONATION_LINK
+    PORT = Config.PORT
+    CERT_PATH = Config.CERT_PATH
     ALLOW_EXCL = Config.ALLOW_EXCL
     CASH_API_KEY = Config.CASH_API_KEY
     DB_URI = Config.DATABASE_URL
