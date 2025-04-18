@@ -1,5 +1,4 @@
 {
-    "name": "Mukesh Robot",
     "name": "Asuna Robot",
       "description": "An Anime Theme Telegram group management bot.",
       "keywords": [
@@ -12,7 +11,8 @@
     
    "logo":    "https://telegra.ph/file/4977514f30ff13c11363b.jpg",  
    "repository": "https://github.com/HuntingBots/Asuna-Robot",
-   "addons": [
+   "stack": "heroku-22",
+  "addons": [
           {
          "options": {
             "version": "15"
