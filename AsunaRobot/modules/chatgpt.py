@@ -3,7 +3,7 @@ from .. import pbot as  Asuna,BOT_NAME,BOT_USERNAME
 import time
 from pyrogram.enums import ChatAction, ParseMode
 from pyrogram import filters
-from  AsunaAPI import api
+from  MukeshAPI import api
 @ Asuna.on_message(filters.command(["chatgpt","ai","ask"],  prefixes=["+", ".", "/", "-", "?", "$","#","&"]))
 async def chat_gpt(bot, message):
     
