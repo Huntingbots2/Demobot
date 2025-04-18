@@ -1,24 +1,26 @@
 {
     "name": "Mukesh Robot",
-    "description": "Telegram Group Management Bot.",
-    "logo": "https://te.legra.ph/file/49c43e6fc856534a09853.jpg",
-    "keywords": [
-       "telegram",
-       "modular",
-       "group",
-       "manager"
-    ],   
- "repository": "https://github.com/Noob-Mukesh/MukeshRobot",
- "stack": "heroku-22",
- "addons": [
-    {
-       "options": {
-          "version": "15"
-       },
-       "plan": "heroku-postgresql"
-    }
- ],
- "env": {
+    "name": "Asuna Robot",
+      "description": "An Anime Theme Telegram group management bot.",
+      "keywords": [
+         "telegram",
+         "anime",
+         "group",
+         "manager",
+         "Asuna"
+      ],
+    
+   "logo":    "https://telegra.ph/file/4977514f30ff13c11363b.jpg",  
+   "repository": "https://github.com/HuntingBots/Asuna-Robot",
+   "addons": [
+          {
+         "options": {
+            "version": "15"
+         },
+         "plan": "heroku-postgresql"
+      }
+   ],
+   "env": {
     "API_ID": {
        "description": "Get this value from my.telegram.org/apps.",
        "required": true,
