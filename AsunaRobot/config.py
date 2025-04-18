@@ -32,7 +32,10 @@ class Config(object):
     STRICT_GBAN = True
     ALLOW_EXCL = True
     DEL_CMDS = True
-    INFOPIC = True
+    WALL_API = ""
+    SPAMWATCH_API = ""  # go to support.spamwat.ch to get key
+    SPAMWATCH_SUPPORT_CHAT = "@SpamWatchSupport"
+    INFOPIC = "True"
     WEBHOOK = False
     LOAD = []
     NO_LOAD = []
