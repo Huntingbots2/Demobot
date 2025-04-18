@@ -1,33 +1,27 @@
-from motor.motor_asyncio import AsyncIOMotorClient as MongoCli
-from pymongo import MongoClient, collection
 from AsunaRobot.modules.no_sql.users_db import *
 from AsunaRobot.modules.no_sql.chats_db import *
 from AsunaRobot.modules.no_sql.gban_db import *
-from AsunaRobot import  MONGO_DB_URI
-from mongo import MUK_ROB
 
-mongo = MongoCli(MONGO_DB_URI)
-Asunadb = MUK_ROB
+from pymongo import MongoClient
 
-try:
-    client = MongoClient(MONGO_DB_URI)
-except PyMongoError:
-    exiter(1)
-main_db = client["ASUNA_ROBOT"]
-
-AsunaXdb = main_db
+from AsunaRobot import DB_NAME, DB_URI, LOGGER
 
 
-def get_collection(name: str) -> collection:
-    """ɢᴇᴛ ᴛʜᴇ ᴄᴏʟʟᴇᴄᴛɪᴏɴ ғʀᴏᴍ ᴅᴀᴛᴀʙᴀsᴇ."""
-    return AsunaXdb[name]
+# Client to connect to mongodb
+mongodb_client = MongoClient(DB_URI)
+if mongodb_client:
+    LOGGER.info("Established connection to MongoDB!")
+
+db = mongodb_client[DB_NAME]
+if db:
+    LOGGER.info(f"Connected to '{DB_NAME}' database")
 
 
 class MongoDB:
     """Class for interacting with Bot database."""
 
     def __init__(self, collection) -> None:
-        self.collection = AsunaXdb[collection]
+        self.collection = db[collection]
 
     # Insert one entry into collection
     def insert_one(self, document):
@@ -45,7 +39,10 @@ class MongoDB:
     def find_all(self, query=None):
         if query is None:
             query = {}
-        return list(self.collection.find(query))
+        lst = []
+        for document in self.collection.find(query):
+            lst.append(document)
+        return lst
 
     # Count entries from collection
     def count(self, query=None):
@@ -56,7 +53,8 @@ class MongoDB:
     # Delete entry/entries from collection
     def delete_one(self, query):
         self.collection.delete_many(query)
-        return self.collection.count_documents({})
+        after_delete = self.collection.count_documents({})
+        return after_delete
 
     # Replace one entry in collection
     def replace(self, query, new_data):
@@ -72,13 +70,15 @@ class MongoDB:
         new_document = self.collection.find_one(query)
         return result.modified_count, new_document
 
+    # Close connection
     @staticmethod
     def close():
-        return client.close()
+        return mongodb_client.close()
 
 
 def __connect_first():
     _ = MongoDB("test")
+    LOGGER.info("Initialized Database!\n")
 
 
 __connect_first()
