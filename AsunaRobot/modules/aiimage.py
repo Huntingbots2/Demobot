@@ -26,7 +26,7 @@ from pyrogram import filters
 from pyrogram.types import  Message
 from pyrogram.types import InputMediaPhoto
 from .. import pbot as   Asuna,BOT_USERNAME
-from  AsunaAPI import api
+from  MukeshAPI import api
 from pyrogram.enums import ChatAction,ParseMode
 
 @ Asuna.on_message(filters.command("imagine"))
