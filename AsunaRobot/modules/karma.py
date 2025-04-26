@@ -24,11 +24,12 @@ karma_positive_group = 3
 karma_negative_group = 4
 
 
-@pbot.on_message(
+@app.on_message(
     filters.text
+    & filters.group
     & filters.incoming
     & filters.reply
-    & filters.regex(regex_upvote)
+    & filters.regex(regex_upvote, re.IGNORECASE)
     & ~filters.via_bot
     & ~filters.bot,
     group=karma_positive_group,
@@ -41,11 +42,6 @@ async def upvote(_, message):
         return
     if not message.from_user:
         return
-    if message.reply_to_message.from_user.id == OWNER_ID:
-        await message.reply_text(
-            "ᴡᴇʟʟ, ʜᴇ's ᴍʏ ᴏᴡɴᴇʀ. sᴏ ʏᴇᴀʜ, ʜᴇ ɪs ᴀʟᴡᴀʏs ʀɪɢʜᴛ ᴀɴᴅ ᴇᴠᴇʀʏᴏɴᴇ ᴋɴᴏᴡs ʜᴇ ɪs ᴀ ɢᴏᴏᴅ ᴘᴇʀsᴏɴ ᴛᴏᴏ."
-        )
-        return
     if message.reply_to_message.from_user.id == message.from_user.id:
         return
     chat_id = message.chat.id
@@ -55,14 +51,15 @@ async def upvote(_, message):
     if current_karma:
         current_karma = current_karma["karma"]
         karma = current_karma + 1
+        new_karma = {"karma": karma}
+        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     else:
         karma = 1
-    new_karma = {"karma": karma}
-    await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
+        new_karma = {"karma": karma}
+        await update_karma(chat_id, await int_to_alpha(user_id), new_karma)
     await message.reply_text(
-        f"ɪɴᴄʀᴇᴍᴇɴᴛᴇᴅ ᴋᴀʀᴍᴀ ᴏғ {user_mention} ʙʏ 1.\n**ᴛᴏᴛᴀʟ ᴩᴏɪɴᴛs :** {karma}"
+        f"Incremented Karma of {user_mention} By 1 \nTotal Points: {karma}"
     )
-
 
 @pbot.on_message(
     filters.text
