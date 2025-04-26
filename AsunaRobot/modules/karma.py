@@ -24,7 +24,7 @@ karma_positive_group = 3
 karma_negative_group = 4
 
 
-@app.on_message(
+@pbot.on_message(
     filters.text
     & filters.group
     & filters.incoming
