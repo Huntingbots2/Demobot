@@ -2,7 +2,7 @@ class Config(object):
     LOGGER = True
     API_ID = 3975570
     API_HASH = "680b62f2844aa1954216f6cb99d2f3d9"
-    TOKEN = "1746875218:AAFPvcA5kZhCi-TOxAE6j6wKL9BErVOrXsM"  
+    TOKEN = "1843295508:AAFW5BZHxlB9B72xVj-rraTBMFa7BOVd8b4"  
     OWNER_ID= 1606221784
     
     SUPPORT_CHAT = "AsunaRobotSupport" 
